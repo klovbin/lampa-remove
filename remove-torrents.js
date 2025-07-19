@@ -9,12 +9,19 @@
     function removeServerBlock() {
         // Удаляем блок сервера в настройках
         $('[data-component="server"]').remove();
+        // Удаляем блок парсера в настройках
+        $('[data-component="parser"]').remove();
         // Также попробуем удалить через Lampa.Settings если доступно
         if (Lampa.Settings && Lampa.Settings.main) {
             try {
-                var settingsEl = Lampa.Settings.main().render().find('[data-component="server"]');
-                if (settingsEl && settingsEl.length) {
-                    settingsEl.remove();
+                var settingsElServer = Lampa.Settings.main().render().find('[data-component="server"]');
+                if (settingsElServer && settingsElServer.length) {
+                    settingsElServer.remove();
+                    Lampa.Settings.main().update();
+                }
+                var settingsElParser = Lampa.Settings.main().render().find('[data-component="parser"]');
+                if (settingsElParser && settingsElParser.length) {
+                    settingsElParser.remove();
                     Lampa.Settings.main().update();
                 }
             } catch (e) {}
@@ -42,6 +49,7 @@
         if (e.type === 'complite') {
             e.object.activity.render().find('[data-action="mytorrents"]').remove();
             e.object.activity.render().find('[data-component="server"]').remove();
+            e.object.activity.render().find('[data-component="parser"]').remove();
         }
     });
 
