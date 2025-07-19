@@ -5,8 +5,9 @@
         if (e.type === 'ready') {
             setTimeout(function () {
                 // Удаление кнопки "Торренты"
-                $("[data-action=torrents]").eq(0).remove();
-            }, 10); 
+                $("[data-action=mytorrents]").eq(0).remove();
+            }, 100); 
         }
     });
-})(); 
+
+})();
