@@ -1,34 +1,12 @@
 (function () {
     'use strict';
 
-    function removeTorrServer() {
-        var el = Lampa.Settings.main()?.render()?.find('[data-component="server"]');
-        if (el && el.length) {
-            el.remove();
-            Lampa.Settings.main().update();
+    Lampa.Listener.follow('full', function (e) {
+        if (e.type === 'complite') {
+            // Удаляем кнопку "Торренты"
+            e.object.activity.render().find('[data-action="mytorrents"]').remove();
+            // Удаляем блок сервера
+            e.object.activity.render().find('[data-component="server"]').remove();
         }
-    }
-
-    function removeTorrentsButton() {
-        // Удаление кнопки "Торренты"
-        $("[data-action=mytorrents]").eq(0).remove();
-    }
-
-    function initializeRemovals() {
-        setTimeout(function () {
-            removeTorrentsButton();
-        }, 100);
-        removeTorrServer();
-    }
-
-    if (window.appready) {
-        initializeRemovals();
-    } else {
-        Lampa.Listener.follow('app', (e) => {
-            if (e.type === 'ready') {
-                initializeRemovals();
-            }
-        });
-    }
-
+    });
 })();
